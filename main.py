@@ -3,7 +3,7 @@ import json
 from time import sleep
 import datetime
 import faker
-from azure.storage.blob import BlobServiceClient
+from azure.storage.blob import BlobServiceClient, ContentSettings
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -49,15 +49,17 @@ def upload_blob(file_name):
     blob_client = blob_service_client.get_blob_client(
         container=container_name, blob=file_name)
 
+    content_settings = ContentSettings(content_type='application/json')
+
     with open(file_name, "rb") as data:
-        blob_client.upload_blob(data)
+        blob_client.upload_blob(data, content_settings=content_settings)
 
     os.remove(file_name)
 
 
 if __name__ == '__main__':
     counter = 0
-    while counter < 10:
+    while counter < 1:
         file = create_timestamp() + '.json'
         save_json(create_order(), file)
         upload_blob(file)

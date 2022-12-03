@@ -1,4 +1,4 @@
-from main import create_order
+from main import create_order, create_timestamp
 
 # test json file
 def test_create_order():
@@ -11,5 +11,4 @@ def test_create_order():
     assert order['order_amount'] in range(1, 1000)
     assert order['item_price'] in range(1, 1000)
     assert order['payment_provider'] in ('paypal', 'klarna', 'cc')
-
     
